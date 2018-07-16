@@ -6,15 +6,11 @@ import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
-/**
- * Created by 刘镓旗 on 2017/8/30.
- */
-
-public class MyClassTransform extends Transform {
+public class ClassTransform extends Transform {
 
     private Project mProject;
 
-    public MyClassTransform(Project p) {
+    public ClassTransform(Project p) {
         this.mProject = p;
     }
 
@@ -23,7 +19,7 @@ public class MyClassTransform extends Transform {
     //transformClassesWith + getName() + For + Debug或Release
     @Override
     public String getName() {
-        return "MyClassTransform";
+        return "ClassTransform";
     }
 
     //需要处理的数据类型，有两种枚举类型
@@ -62,7 +58,37 @@ public class MyClassTransform extends Transform {
                           Collection<TransformInput> referencedInputs,
                           TransformOutputProvider outputProvider,
                           boolean isIncremental) throws IOException, TransformException, InterruptedException {
+        System.out.println("----------------进入transform了--------------")
 
+        //遍历input
+        inputs.each { TransformInput input ->
+            //遍历文件夹
+            input.directoryInputs.each { DirectoryInput directoryInput ->
+                //注入代码
+                InjectTest.inject(directoryInput.file.absolutePath, mProject)
+
+                // 获取output目录
+                def dest = outputProvider.getContentLocation(directoryInput.name,
+                        directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
+
+                // 将input的目录复制到output指定目录
+                FileUtils.copyDirectory(directoryInput.file, dest)
+            }
+
+            ////遍历jar文件 对jar不操作，但是要输出到out路径
+            input.jarInputs.each { JarInput jarInput ->
+                // 重命名输出文件（同目录copyFile会冲突）
+                def jarName = jarInput.name
+                println("jar = " + jarInput.file.getAbsolutePath())
+                def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())
+                if (jarName.endsWith(".jar")) {
+                    jarName = jarName.substring(0, jarName.length() - 4)
+                }
+                def dest = outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+                FileUtils.copyFile(jarInput.file, dest)
+            }
+        }
+        System.out.println("--------------结束transform了----------------")
     }
 
 }
