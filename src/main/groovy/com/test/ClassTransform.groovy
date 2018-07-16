@@ -52,6 +52,7 @@ public class ClassTransform extends Transform {
 
 //    Transform中的核心方法，
 //    inputs中是传过来的输入流，其中有两种格式，一种是jar包格式一种是目录格式。
+//dddd
 //    outputProvider 获取到输出目录，最后将修改的文件复制到输出目录，这一步必须做不然编译会报错
     @Override
     public void transform(Context context,
@@ -65,9 +66,9 @@ public class ClassTransform extends Transform {
         inputs.each { TransformInput input ->
             //遍历文件夹
             input.directoryInputs.each { DirectoryInput directoryInput ->
-                //注入代码
+                //
                 InjectTest.inject(directoryInput.file.absolutePath, mProject)
-
+                
                 // 获取output目录
                 def dest = outputProvider.getContentLocation(directoryInput.name,
                         directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
