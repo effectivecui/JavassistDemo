@@ -24,7 +24,7 @@ public class ClassTransform extends Transform {
 
     //需要处理的数据类型，有两种枚举类型
     //CLASSES和RESOURCES，CLASSES代表处理的java的class文件，RESOURCES代表要处理java的资源
-    //test
+    //testdsfsdfsdf
     @Override
     public Set<QualifiedContent.ContentType> getInputTypes() {
         return TransformManager.CONTENT_CLASS;
