@@ -64,17 +64,15 @@ public class MyClassTransform extends Transform {
                           Collection<TransformInput> referencedInputs,
                           TransformOutputProvider outputProvider,
                           boolean isIncremental) throws IOException, TransformException, InterruptedException {
-<<<<<<< HEAD:src/main/groovy/com/test/MyClassTransform.groovy
-=======
-        System.out.println("----------------进入transform了--------------")
 
+        System.out.println("----------------进入transform了--------------")
         //遍历input
         inputs.each { TransformInput input ->
             //遍历文件夹
             input.directoryInputs.each { DirectoryInput directoryInput ->
                 //
                 InjectTest.inject(directoryInput.file.absolutePath, mProject)
-                
+
                 // 获取output目录
                 def dest = outputProvider.getContentLocation(directoryInput.name,
                         directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
@@ -82,9 +80,7 @@ public class MyClassTransform extends Transform {
                 // 将input的目录复制到output指定目录
                 FileUtils.copyDirectory(directoryInput.file, dest)
             }
->>>>>>> 294fef13d92bacdfd3be7946d0013d22ebbff0ae:src/main/groovy/com/test/ClassTransform.groovy
+        }
 
     }
-
 }
-
