@@ -6,15 +6,11 @@ import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.io.FileUtils
 import org.gradle.api.Project
 
-/**
- * Created by 刘镓旗 on 2017/8/30.
- */
-
-public class MyClassTransform extends Transform {
+public class ClassTransform extends Transform {
 
     private Project mProject;
 
-    public MyClassTransform(Project p) {
+    public ClassTransform(Project p) {
         this.mProject = p;
     }
 
@@ -23,12 +19,11 @@ public class MyClassTransform extends Transform {
     //transformClassesWith + getName() + For + Debug或Release
     @Override
     public String getName() {
-        return "MyClassTransform";
+        return "ClassTransform";
     }
 
     //需要处理的数据类型，有两种枚举类型
     //CLASSES和RESOURCES，CLASSES代表处理的java的class文件，RESOURCES代表要处理java的资源
-    //testdsfsdfsdf
     @Override
     public Set<QualifiedContent.ContentType> getInputTypes() {
         return TransformManager.CONTENT_CLASS;
@@ -56,7 +51,6 @@ public class MyClassTransform extends Transform {
 
 //    Transform中的核心方法，
 //    inputs中是传过来的输入流，其中有两种格式，一种是jar包格式一种是目录格式。
-//dddd
 //    outputProvider 获取到输出目录，最后将修改的文件复制到输出目录，这一步必须做不然编译会报错
     @Override
     public void transform(Context context,
@@ -82,5 +76,5 @@ public class MyClassTransform extends Transform {
             }
         }
 
-    }
 }
+
