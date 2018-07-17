@@ -12,7 +12,7 @@ class TestPlugin implements Plugin<Project> {
       System.out.println("------------------结束----------------------->");
       def android = project.extensions.getByType(AppExtension)
       //注册一个Transform
-      def classTransform = new MyClassTransform(project);
+      def classTransform = new ClassTransform(project);
       android.registerTransform(classTransform);
   }
 }
