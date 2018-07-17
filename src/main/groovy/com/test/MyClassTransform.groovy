@@ -28,6 +28,7 @@ public class MyClassTransform extends Transform {
 
     //需要处理的数据类型，有两种枚举类型
     //CLASSES和RESOURCES，CLASSES代表处理的java的class文件，RESOURCES代表要处理java的资源
+    //testdsfsdfsdf
     @Override
     public Set<QualifiedContent.ContentType> getInputTypes() {
         return TransformManager.CONTENT_CLASS;
@@ -55,6 +56,7 @@ public class MyClassTransform extends Transform {
 
 //    Transform中的核心方法，
 //    inputs中是传过来的输入流，其中有两种格式，一种是jar包格式一种是目录格式。
+//dddd
 //    outputProvider 获取到输出目录，最后将修改的文件复制到输出目录，这一步必须做不然编译会报错
     @Override
     public void transform(Context context,
@@ -62,6 +64,25 @@ public class MyClassTransform extends Transform {
                           Collection<TransformInput> referencedInputs,
                           TransformOutputProvider outputProvider,
                           boolean isIncremental) throws IOException, TransformException, InterruptedException {
+<<<<<<< HEAD:src/main/groovy/com/test/MyClassTransform.groovy
+=======
+        System.out.println("----------------进入transform了--------------")
+
+        //遍历input
+        inputs.each { TransformInput input ->
+            //遍历文件夹
+            input.directoryInputs.each { DirectoryInput directoryInput ->
+                //
+                InjectTest.inject(directoryInput.file.absolutePath, mProject)
+                
+                // 获取output目录
+                def dest = outputProvider.getContentLocation(directoryInput.name,
+                        directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
+
+                // 将input的目录复制到output指定目录
+                FileUtils.copyDirectory(directoryInput.file, dest)
+            }
+>>>>>>> 294fef13d92bacdfd3be7946d0013d22ebbff0ae:src/main/groovy/com/test/ClassTransform.groovy
 
     }
 
