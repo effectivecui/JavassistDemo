@@ -3,20 +3,18 @@ apply plugin: 'maven'
 
 
 dependencies {
-    compile "com.android.tools.build:gradle:3.1.3"
   //gradle sdk
     compile gradleApi()
   //groovy sdk
     compile localGroovy()
-    compile "com.android.tools.build:gradle-api:2.3.0"
+    compile "com.android.tools.build:transform-api:1.5.0"
     compile "javassist:javassist:3.12.1.GA"
     compile "commons-io:commons-io:2.5"
 }
 
 
 repositories {
-    google()
-    jcenter()
+  mavenCentral()
 }
 //以上都为固定写法
 
@@ -33,8 +31,7 @@ uploadArchives {
           //    authentication(userName: "admin", password: "admin")
           // }
           //本地的Maven地址设置为E:/Maven
-          repository(url: uri('/Users/huaixiang/Projects/myplugin/maven'))
+          repository(url: uri('/Users/huaixiang/Projects/myplugin'))
       }
   }
 }
-

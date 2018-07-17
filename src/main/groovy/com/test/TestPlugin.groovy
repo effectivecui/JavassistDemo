@@ -2,7 +2,6 @@ package com.test;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import com.android.build.gradle.AppExtension
 
 
 class TestPlugin implements Plugin<Project> {
@@ -13,7 +12,7 @@ class TestPlugin implements Plugin<Project> {
       System.out.println("------------------结束----------------------->");
       def android = project.extensions.getByType(AppExtension)
       //注册一个Transform
-      def classTransform = new ClassTransform(project);
+      def classTransform = new MyClassTransform(project);
       android.registerTransform(classTransform);
   }
 }
