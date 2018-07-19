@@ -14,12 +14,15 @@ class InjectTest {
         pool.appendClassPath(path);
         //project.android.bootClasspath 加入android.jar，不然找不到android相关的所有类
         pool.appendClassPath(project.android.bootClasspath[0].toString());
+
+        println("bootClassPath" + project.android.bootClasspath[0].toString())
+
         //引入android.os.Bundle包，因为onCreate方法参数有Bundle
         pool.importPackage("android.os.Bundle");
-
         File dir = new File(path);
         if (dir.isDirectory()) {
             //遍历文件夹
+
             dir.eachFileRecurse { File file ->
                 String filePath = file.absolutePath
                 println("filePath = " + filePath)

@@ -40,7 +40,7 @@ public class ClassTransform extends Transform {
 //    TESTED_CODE                   由当前变量(包括依赖项)测试的代码
     @Override
     public Set<QualifiedContent.Scope> getScopes() {
-        return TransformManager.SCOPE_FULL_PROJECT;
+        return TransformManager.PROJECT_ONLY;
     }
 
     //指明当前Transform是否支持增量编译
@@ -73,6 +73,11 @@ public class ClassTransform extends Transform {
 
                 // 将input的目录复制到output指定目录
                 FileUtils.copyDirectory(directoryInput.file, dest)
+                //println("directoryInput: " + directoryInput.name)
+            }
+            input.jarInputs.each { JarInput jarInput ->
+                println("jarInput: " + jarInput.name)
+
             }
         }
 
